@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %>- Microblog</title>
+    <link rel='stylesheet' href='http://192.168.18.18:8080/stylesheets/style.css' />
+    <style type="text/css">
+    	body {
+    		padding-top: 60px;
+    		padding-bottom: 40px;
+    	}
+    </style>
+    <link rel="stylesheet" type="text/css" href="http://192.168.18.18:8080/stylesheets/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="http://192.168.18.18:8080/stylesheets/bootstrap-responsive.css">
+
+  </head>
+  <body>
+    <div class='navbar navbar-fixed-top'>
+    	<div class='navbar-inner'>
+    		<div class="container">
+    			<a class='btn btn-navbar' data-toggle='collapse' data-target='.nav-collapse'>
+    				<span class="icon-bar"></span>
+    				<span class="icon-bar"></span>
+    				<span class="icon-bar"></span>
+    			</a>
+    			<a href="" class='brand'>microblog</a>
+    			<div class="nav-collapse">
+    				<ul class='nav'>
+    					<li class='active'><a href="/">首页</a></li>
+    					<li><a href="/login">登入</a></li>
+    					<li><a href="/reg">注册</a></li>
+    				</ul>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <div id='container' class='container'>
+    	<%- body %>
+    	<hr>
+    	<footer>
+    		<p><a href="http://127.0.0.1:3000/" target='_blank'>guokk</a>2018</p>
+    	</footer>
+    </div>
+  </body>
+  <script type="text/javascript" src='http://192.168.18.18:8080/javascripts/jquery-3.3.1.js'></script>
+  <script type="text/javascript" src='http://192.168.18.18:8080/javascripts/bootstrap.js'></script>
+</html>
