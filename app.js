@@ -5,8 +5,12 @@
 
 var express = require('express')
   , routes = require('./routes');
+const MongoStore = require('connect-mongo');
+const settings = require('./settings');
+
 
 var app = module.exports = express.createServer();
+// const app = express();
 
 // Configuration
 
@@ -16,7 +20,14 @@ app.configure(function(){
   // app.set('view options', {layout: false}); // 关闭 layout.ejs
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(app.router);
+  app.use(express.cookieParser());
+  app.use(express.session({
+  	secret: settings.cookieSecret,
+  	// store: new MongoStore({
+  	// 	db: settings.db
+  	// })
+  }));
+  app.use(express.router(routes));
   app.use(express.static(__dirname + '/public'));
 });
 
@@ -49,51 +60,51 @@ app.configure('production', function(){
 5. /login -> 用户登录
 6. /logout -> 用户登出
 */ 
-app.get('/', routes.index);;
-app.get('/u/:user', routes.user);
-app.post('/post', routes.post);
-app.get('/reg', routes.reg);
-app.post('/reg', routes.doReg);
-app.get('/login', routes.login);
-app.post('/login', routes.doLogin);
-app.get('/logout', routes.logout)
+// app.get('/', routes.index);;
+// app.get('/u/:user', routes.user);
+// app.post('/post', routes.post);
+// app.get('/reg', routes.reg);
+// app.post('/reg', routes.doReg);
+// app.get('/login', routes.login);
+// app.post('/login', routes.doLogin);
+// app.get('/logout', routes.logout)
 
-// 片段视图, partial 是一个可以在视图中使用的函数，参数1：片段视图的名称参数2：对象或者数组
-app.get('/list', function(req, res) {
-	res.render('list', {
-		title: 'List',
-		items: [1991, 'guokk', 'express', 'node.js']
-	});
-})
+// // 片段视图, partial 是一个可以在视图中使用的函数，参数1：片段视图的名称参数2：对象或者数组
+// app.get('/list', function(req, res) {
+// 	res.render('list', {
+// 		title: 'List',
+// 		items: [1991, 'guokk', 'express', 'node.js']
+// 	});
+// })
 
 
-// 下面的这段代码的意思是在翻译 userlist 页面模板套用 admin.ejs作为页面布局
-// function(req, res) {
-// 	res.render('userlist', {
-// 		title: '用户列表-后台管理系统',
-// 		layout: 'admin'
-// 	})
-// }
+// // 下面的这段代码的意思是在翻译 userlist 页面模板套用 admin.ejs作为页面布局
+// // function(req, res) {
+// // 	res.render('userlist', {
+// // 		title: '用户列表-后台管理系统',
+// // 		layout: 'admin'
+// // 	})
+// // }
 
-const util = require('util');
-// 静态视图助手
-app.helpers({
-	inspects: function(obj){
-		return util.inspect(obj, true)
-	}
-});
-// 动态视图助手
-app.dynamicHelpers({
-	headers: function(req, res) {
-		return req.headers;
-	}
-})
+// const util = require('util');
+// // 静态视图助手
+// app.helpers({
+// 	inspects: function(obj){
+// 		return util.inspect(obj, true)
+// 	}
+// });
+// // 动态视图助手
+// app.dynamicHelpers({
+// 	headers: function(req, res) {
+// 		return req.headers;
+// 	}
+// })
 
-app.get('/helper', function(req, res) {
-	res.render('helper', {
-		title: 'Helpers'
-	});
-});
+// app.get('/helper', function(req, res) {
+// 	res.render('helper', {
+// 		title: 'Helpers'
+// 	});
+// });
 
 
 
